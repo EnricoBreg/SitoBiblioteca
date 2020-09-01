@@ -190,7 +190,7 @@
             <a href="http://www.unife.it/it" target="blank"><img id="logo" src="./immagini/logo.jpg" alt="logo"></a>
         </div>
 
-        <!-- barra di navigazione -->
+    <!-- inizio barra di navigazione -->
     <div id="navBar">
         <!-- *id="navBar"> -->
         <ul>
@@ -208,11 +208,11 @@
                 </li>
                 <li><a href="./menu.html">Prestiti</a>
                     <ul>
-                        <li><a href="./registra_prestito.php">Registra nuovo prestito</a></li>
+                        <li><a href="./consulta-prestiti.html">Consulta situazione prestiti per codice matricola</a></li>
+                        <li><a href="./registra-prestito-1.php">Registra nuovo prestito</a></li>
                         <li><a href="./registra_proroga.html">Proroga un prestito</a></li>
                         <li><a href="./registra_rientro.html">Registra un rientro</a></li>
-                        <li>Consulta situazione prestiti</li>
-                        <li>Consulta situazione prestiti per codice matricola</li>
+                        <li><a href="./tutti-prestiti.php">Visualizza tutti i prestiti</a></li>
                     </ul>
                 </li>
                 <li><a href="./menu.html">Utenti</a>
@@ -220,6 +220,7 @@
                         <li><a href="./registra_utente.html">Registra nuovo utente</a></li>
                         <li><a href="./aggiornamento_utente1.html">Aggiorna/Modifica utente</a></li>
                         <li><a href="./cancella_utente.html">Cancella utente</a></li>
+                        <li><a href="./user-search.php">Ricerca uno studente</a></li>
                     </ul>
                 </li>
                 <li><a href="./menu.html">Autori/Editori</a>
@@ -229,6 +230,9 @@
                         <li><a href="./pub-reg.php">Nuovo Editore</a></li>
                         <li><a href="./author-reg.php">Nuovo Autore</a></li>
                     </ul>
+                </li>
+                <li>
+                    <a href="usefull-info.php">Usefull Info</a>
                 </li>
         </ul>
     </div>
