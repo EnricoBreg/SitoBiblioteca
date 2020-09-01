@@ -5,7 +5,7 @@
     $Matricola = $_POST["Matricola"];
     $Nome = $_POST["Nome"];
     $Cognome = $_POST["Cognome"];
-    $Sesso = $_POSTO["Sesso"];
+    $Sesso = $_POST["Sesso"];
     $DataNascita = $_POST["Data_n"];
     $CdS = $_POST["CdS"];
     $Via = $_POST["Via"];
