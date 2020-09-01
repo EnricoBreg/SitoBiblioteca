@@ -110,6 +110,7 @@
                 if($resInserimento == NULL){ ?>
                 <h1>ESITO REGISTRAZIONE NUOVO PRESTITO</h1>
                 <p>Qualcosa non è andato a buon fine durante la registrazione del prestito :(</p>
+                <p>Prova a controllare che la copia non sia già in prestito.</p>
                 <p>Ci scusiamo per l'inconveniente. Prego <a href="registra-prestito-1.php">riprovare</a>. </p>
                 <p>Se il problema persiste, contattare l'amministratore.</p>
             <?php }
