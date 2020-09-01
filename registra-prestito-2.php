@@ -127,7 +127,7 @@
                 <p>TITOLO: <?php echo $TITOLO; ?></p>
                 <p><b>SCADENZA DEL PRESTITO: <?php echo date_format($DATA_FINE, "d-m-Y"); ?> 
                 </b> (a 30 gg da data ordierna).</p>
-                <p><button onclick="window.print();">Stampa la pagina</button></p>
+                <p><button onclick="window.print();">Stampa promemoria</button></p>
                 <p><a href="registra-prestito-1.php">Registra un nuovo prestito &#x2934;</a> | <a href="menu.html">Menù &#x2934;</a> |<a href="index.html">Ritorna alla HOME</a>
             <?php } ?>
 
