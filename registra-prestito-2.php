@@ -124,7 +124,7 @@
                     ?> 
                 </b> (a 30 gg da data ordierna).</p>
                 <p><button onclick="window.print();">Stampa la pagina</button></p>
-                <p><a href="registra-prestito-1.php">Registra un nuovo prestito &#x2934;</a> | <a href="index.html">Ritorna alla HOME</a>
+                <p><a href="registra-prestito-1.php">Registra un nuovo prestito &#x2934;</a> | <a href="menu.html">Menù &#x2934;</a> |<a href="index.html">Ritorna alla HOME</a>
             <?php } ?>
 
         </div>

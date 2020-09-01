@@ -95,7 +95,7 @@
                 
                 <h1>OPPURE... RICERCA UNO STUDENTE PER NOME O COGNOME</h1>
                 <p>(*)Campi obbligatori</p>
-                <p>Inserisci (anche parzialmente) il nome o il cognome dello studente che vuoi ricercare.</p>
+                <p>Inserisci (anche parzialmente) il nome <b>o</b> il cognome dello studente che vuoi ricercare.</p>
 
                 <!-- Inserimento -->
                 <label>Nome o Cognome:</label>
