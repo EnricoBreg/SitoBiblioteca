@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MENU - Biblioteca Universitaria</title>
+        <link rel="stylesheet" style="text/css" href="./myStyles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <div id="Titolo">
+            <p id="titolo">BIBLIOTECA UNIVERSITARIA DI FERRARA</p>
+            <a href="http://www.unife.it/it" target="__blank"><img id="logo" src="./immagini/logo.jpg" alt="logo"></a>
+        </div>
+
+            <!-- barra di navigazione -->
+        <div id="navBar">
+            <!-- *id="navBar"> -->
+            <ul>
+                <!-- dentro agli li ci andranno i link alle relative pagine -->
+                <li>
+                    <a href="./index.html">Home</a>
+                </li>
+                <li><a href="http://www.unife.it/it/ateneo/strutture-uffici/dipartimenti-e-facolta" target="__blank">Dipartimenti</a></li>
+            </ul>
+        </div>
+        <!-- fine barra di navigazione -->
+
+        <div id="menu">
+            
+            <h1>OPZIONI DISPONIBILI</h1>
+            <p>Qui sotto trovi le opzioni suddivise per LIBRI, PRESTITI, UTENTI</p>
+
+            <ul> 
+                <li>Opzioni per LIBRI: 
+                    <ul>
+                        <li><a>Registra nuovo libro</a></li>
+                        <li><a>Registra nuova copia (Libro già registrato)</a></li>
+                        <li><a href="./all-books.php">Visualizza tutti i libri nel DB</a></li>
+                        <li><a href="./all-pubs.php">Visualizza tutti gli Editori</a></li>
+                    </ul>
+                </li>
+                <li> Opzioni per PRESTITI:
+                    <ul>
+                        <li><a href="./registra_prestito.php">Registra nuovo prestito</a></li>
+                        <li><a href="./registra_proroga.html">Proroga un prestito</a></li>
+                        <li><a href="./registra_rientro.html">Registra un rientro</a></li>
+                        <li><a>Consulta situazione prestiti</a></li>
+                        <li><a>Consulta situazione prestiti per codice matricola</a></li>
+                    </ul>
+                </li>
+                <li>Opzioni per UTENTI
+                    <ul>
+                        <li><a href="./registra_utente.html">Registra nuovo utente</a></li>
+                        <li><a>Aggiorna utente esistente</a></li>
+                        <li><a><a href="./cancella_utente.html">Cancella utente</a></a></li>
+                    </ul>
+                </li>
+                <li>Opzioni per AUTORI ed EDITORI:
+                    <ul>
+                        <li><a href="./all-pubs.php">Visualizza tutti gli Editori dei libri</a></li>
+                        <li><a href="./all-authors.php">Visualizza tutti gli Autori dei libri</a></li>
+                        <li><a href="./pub-reg.php">Inserisci un nuovo Editore</a></li>
+                        <li><a href="./author-reg.php">Inserisci un nuovo Autore</a></li>
+                    </ul>
+                </li>
+                <li>STATISTICHIAMO...
+                    <ul>
+                        <li><a href="usefull-info.php">ALCUNE CURIOSITÀ ED INFORMAZIONI UTILI...</a>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+
+        
+
+    </body>
+
+
+</html>
