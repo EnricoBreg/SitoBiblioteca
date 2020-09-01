@@ -4,7 +4,7 @@
 
     // Estrazione dal DB di tutti i prestiti
     // mi piacerebbe far vedere la data di fine, ma come fare da PHP o MYSQL???????
-    $sql = "SELECT P.ID, P.DataPrestito, P.ContProroghe, P.NumeroCopia, P.ISBN, P.Matricola, P.CodiceB, L.Titolo, S.Nome, S.Cognome, B.NomeDipartimento
+    $sql = "SELECT P.ID, P.DataPrestito AS DataInizio, DATE_ADD((SELECT DataPrestito FROM PRESTITO WHERE ID=P.ID), INTERVAL 30 DAY) AS DataFine, P.NumeroCopia, P.ISBN, P.Matricola, P.CodiceB, L.Titolo, S.Nome, S.Cognome, B.NomeDipartimento
             FROM PRESTITO AS P, LIBRO AS L, STUDENTE AS S, BIBLIOTECA as B
             WHERE P.ISBN = L.ISBN AND P.Matricola = S.Matricola AND B.CodiceBiblioteca = P.CodiceB";
     $res = mysqli_query($link, $sql);
@@ -84,17 +84,19 @@
         <div id="formRes">
 
             <br/><a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
-            <p>Tutti i prestiti attualmente attivi:</p>
+            <h1>VISUALIZZA TUTTI I PRESTITI</h1>
+            <p>Elenco dei tutti i prestiti attualmente attivi:</p>
             
             <table id="TableStyle">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Data Prestito</th>
+                        <th>Data Inizio Prestito</th>
+                        <th>Data Fine Prestito</th>
                         <th>ISBN/Numero copia</th>
                         <th>Titolo del libro</th>
                         <th>Studente richiedente</th>
-                        <th>CodiceB</th>
+                        <th>Codice Biblio - Sede</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -103,11 +105,12 @@
                     <?php while($riga = mysqli_fetch_array($res)) { ?>
                         <tr>
                             <td> <?php echo $riga['ID']; ?> </td>
-                            <td> <?php echo $riga['Titolo']; ?> </td>
-                            <td> <?php echo $riga['AnnoPubblicazione']; ?> </td>
-                            <td> <?php echo $riga['Categoria']; ?> </td>
-                            <td> <?php echo $riga['Lingua']; ?> </td>
-                            <td> <?php echo $riga['NomeAutore'] . " " . $riga['CognomeAutore']; ?> </td>
+                            <td> <?php echo $riga['DataInizio']; ?> </td>
+                            <td> <?php echo $riga['DataFine']; ?> </td>
+                            <td> <?php echo $riga['ISBN'] . "/" . $riga['NumeroCopia']; ?> </td>
+                            <td> <?php echo $riga['Titolo']; ?></td>
+                            <td> <?php echo $riga['Nome'] . " " . $riga['Cognome'] . " (" . $riga['Matricola'] . ")"; ?> </td>
+                            <td> <?php echo $riga['CodiceB'] . " - " . $riga['NomeDipartimento'];?></td>
                         </tr>
                     <?php } ?>
 
