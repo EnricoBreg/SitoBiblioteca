@@ -4,15 +4,19 @@
 
     
     $ID = $_POST['ID'];
-    $DATA = $_POST['Data'];
+    $DATA_INIZIO = $_POST['Data'];
     $ISBN = $_POST['ISBN'];
     $NUMEROCOPIA = $_POST['NumeroCopia'];
     $MATRICOLA = $_POST['Matricola'];
     $CODICEBIBLIOTECA = $_POST['CodiceBiblioteca'];
     $CONTPROROGHE = 2;
 
+    // Generazione della data per la scadenza del prestito (30 giorni da DATA_INIZIO)
+    $DATA_FINE = date_create($_POST['Data']);
+    date_add($DATA_FINE, date_interval_create_from_date_string("30 days"));
+
     $sql = "INSERT INTO PRESTITO (ID, DataPrestito, ContProroghe, ISBN, NumeroCopia, Matricola, CodiceB)
-            VALUES ('$ID', '$DATA', '$CONTPROROGHE', '$ISBN', '$NUMEROCOPIA', '$MATRICOLA', '$CODICEBIBLIOTECA')";
+            VALUES ('$ID', '$DATA_INIZIO', '$CONTPROROGHE', '$ISBN', '$NUMEROCOPIA', '$MATRICOLA', '$CODICEBIBLIOTECA')";
     
     $resInserimento = mysqli_query($link, $sql);
 
@@ -116,12 +120,7 @@
                 <p><b>ID PRESTITO: <?php echo $ID ?></b></p>
                 <p>ISBN/NUMERO COPIA: <?php echo $ISBN . "/" . $NUMEROCOPIA; ?></p>
                 <p>TITOLO: <?php echo $TITOLO; ?></p>
-                <p><b>SCADENZA DEL PRESTITO: 
-                    <?php 
-                        // suddivido la data inserita come una lista
-                        list($anno, $mese, $giorno) = explode("/", $DATA);
-                        echo date("d/m/Y", mktime(0, 0, 0, $giorno+30, $mese, $anno));
-                    ?> 
+                <p><b>SCADENZA DEL PRESTITO: <?php echo date_format($DATA_FINE, "d-m-Y"); ?> 
                 </b> (a 30 gg da data ordierna).</p>
                 <p><button onclick="window.print();">Stampa la pagina</button></p>
                 <p><a href="registra-prestito-1.php">Registra un nuovo prestito &#x2934;</a> | <a href="menu.html">Menù &#x2934;</a> |<a href="index.html">Ritorna alla HOME</a>
