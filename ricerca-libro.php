@@ -123,35 +123,19 @@
                 <tbody>
                     <tr>
                     <?php
-                    $iter = 0;
-                    while($riga = mysqli_fetch_array($res)) { ?>
+                    $ISBN_PREV = "";
+                    while($riga = mysqli_fetch_array($res)) {
 
-                        <?php
-                        if($iter != 0){
-
-                            if($ISBN_PREV == $riga['ISBN']){
-                                echo $riga['NomeA'] . " " . $riga['CognomeA'] . "<br/>";
-                            }
-                            else {
-                                // Se diverso salva il nuovo ISBN e chiude la cella e riga corrente e apre una riga nuova
-                                $ISBN_PREV = $riga['ISBN']; ?>  
-                                </td> 
-                                </tr> 
-                                <tr>
-                                <td><?php echo $riga['ISBN']; ?></td>
-                                    <td><?php echo $riga['Titolo']; ?></td>
-                                    <td><?php echo $riga['AnnoPubblicazione']; ?></td>
-                                    <td><?php echo $riga['Categoria']; ?></td>
-                                    <td><?php echo $riga['Lingua']; ?></td>
-                                    <td><?php echo $riga['Editore']; ?></td>
-                                    <td><?php echo $riga['NomeA'] . " " . $riga['CognomeA'] ?>
-                                <?php
-                            }
+                        if($ISBN_PREV == $riga['ISBN']){
+                            echo $riga['NomeA'] . " " . $riga['CognomeA'] . "<br/>";
                         }
                         else {
-                            // eseguito solo alla prima iterazione
-                            ?>
-                                <td><?php echo $riga['ISBN']; ?></td>
+                            // Se diverso salva il nuovo ISBN e chiude la cella e riga corrente e apre una riga nuova
+                            $ISBN_PREV = $riga['ISBN']; ?>
+                            </td>
+                            </tr>   
+                            <tr>
+                            <td><?php echo $riga['ISBN']; ?></td>
                                 <td><?php echo $riga['Titolo']; ?></td>
                                 <td><?php echo $riga['AnnoPubblicazione']; ?></td>
                                 <td><?php echo $riga['Categoria']; ?></td>
@@ -159,10 +143,8 @@
                                 <td><?php echo $riga['Editore']; ?></td>
                                 <td><?php echo $riga['NomeA'] . " " . $riga['CognomeA'] ?>
                             <?php
-                        }
-                        $iter++;
-                        ?> <?php
-                    } // fine while
+                            }
+                        } // fine while
                 ?>
                 </td>
                 </tr>
