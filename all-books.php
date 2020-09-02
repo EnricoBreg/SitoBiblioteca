@@ -2,12 +2,22 @@
 
     include_once("connection_test.php");
 
-    $sql = "SELECT LIBRO.ISBN, LIBRO.Titolo, LIBRO.AnnoPubblicazione, LIBRO.Categoria, LIBRO.Lingua, AUTORE.Nome AS NomeAutore, AUTORE.Cognome AS CognomeAutore
-            FROM LIBRO, AUTORE, SCRIVE
-            WHERE LIBRO.ISBN = SCRIVE.ISBN AND AUTORE.CodiceAutore = SCRIVE.CodiceA";
+    $sql = "SELECT LIBRO.ISBN, LIBRO.Titolo, LIBRO.AnnoPubblicazione, LIBRO.Categoria, LIBRO.Lingua, AUTORE.Nome AS NomeA, AUTORE.Cognome AS CognomeA, EDITORE.Nome AS Editore
+            FROM LIBRO, AUTORE, SCRIVE, EDITORE
+            WHERE LIBRO.ISBN = SCRIVE.ISBN AND AUTORE.CodiceAutore = SCRIVE.CodiceA AND EDITORE.CodiceEditore = LIBRO.CodiceE
+            ORDER BY LIBRO.AnnoPubblicazione ASC";
 
     $res = mysqli_query($link, $sql);
 
+    $sql = "SELECT DISTINCT LIBRO.ISBN
+            FROM LIBRO";
+
+    $resForCount = mysqli_query($link, $sql);
+
+    while($rigaForCount = mysqli_fetch_array($resForCount)) {
+        $counter++;
+    }
+    
     mysqli_close($link);
 ?>
 
@@ -80,41 +90,64 @@
     </div>
     <!-- fine barra di navigazione -->
 
-        <div id="formRes">
+    <div id="formRes">
 
-            <br/><a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
-            <p>La collezione di libri della Biblioteca Universitaria:</p>
-            
+        <a href="./user-search.php">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
+
+        <h1>ESITO RICERCA LIBRI</h1>
+
+        <?php if($INVALID == 1) { ?>
+            <p>OPS :(</p>
+            <p>Sembra che non ci siano libri che corrispondano alla tua ricerca. <a href="ricerca-libro.html">Riprova cliccando qui</a></p>
+            <p>Se il problema persiste contatta l'amministratore</p>
+        <?php }
+        else {
+        ?>
+            <p>Attualmente in totale ci sono <b><?php echo $counter; ?></b> libri.</p>
             <table id="TableStyle">
-                <thead>
-                    <tr>
-                        <th>ISBN</th>
-                        <th>Titolo</th>
-                        <th>Anno Pubblicazione</th>
-                        <th>Categoria</th>
-                        <th>Lingua</th>
-                        <th>Autore</th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-                    <?php while($riga = mysqli_fetch_array($res)) { ?>
+            <thead>
+                <th>ISBN</th>
+                <th>Titolo</th>
+                <th>Anno pubblicazione</th>
+                <th>Categoria</th>
+                <th>Lingua</th>
+                <th>Editore</th>
+                <th>Autore/i</th>
+            </thead>
+            <tbody>
+                <tr>
+                <?php
+                $ISBN_PREV = "";
+                while($riga = mysqli_fetch_array($res)) {
+
+                    if($ISBN_PREV == $riga['ISBN']){
+                        echo $riga['NomeA'] . " " . $riga['CognomeA'] . "<br/>";
+                    }
+                    else {
+                        // Se diverso salva il nuovo ISBN e chiude la cella e riga corrente e apre una riga nuova
+                        $ISBN_PREV = $riga['ISBN']; ?>
+                        </td>
+                        </tr>   
                         <tr>
-                            <td> <?php echo $riga['ISBN']; ?> </td>
-                            <td> <?php echo $riga['Titolo']; ?> </td>
-                            <td> <?php echo $riga['AnnoPubblicazione']; ?> </td>
-                            <td> <?php echo $riga['Categoria']; ?> </td>
-                            <td> <?php echo $riga['Lingua']; ?> </td>
-                            <td> <?php echo $riga['NomeAutore'] . " " . $riga['CognomeAutore']; ?> </td>
-                        </tr>
-                    <?php } ?>
+                        <td><?php echo $riga['ISBN']; ?></td>
+                            <td><?php echo $riga['Titolo']; ?></td>
+                            <td><?php echo $riga['AnnoPubblicazione']; ?></td>
+                            <td><?php echo $riga['Categoria']; ?></td>
+                            <td><?php echo $riga['Lingua']; ?></td>
+                            <td><?php echo $riga['Editore']; ?></td>
+                            <td><?php echo $riga['NomeA'] . " " . $riga['CognomeA'] ?>
+                        <?php
+                        }
+                    } // fine while
+            ?>
+            </td>
+            </tr>
+            </tbody>
+        </table>
+        <?php } ?>
+        <a href="./user-search.php">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
 
-                </tbody>
-            </table>
-            <br/>
-            <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
         </div>
-
     </body>
 
 </html>

@@ -13,16 +13,25 @@
 
     $res = mysqli_query($link, $sql);    
     $resCopy = mysqli_query($link, $sql);
-    $resForCount = mysqli_query($link, $sql);
 
+    // Controllo del risultato della query
     while($temp = mysqli_fetch_array($resCopy)) {
         if($temp['ISBN'] == "") {
             $INVALID = 1;
         }
     }
 
-    while($rowForCount = mysqli_fetch_array($resForCount)) {
-        $trovati++;
+    // Se valido il risultato allora posso contare
+    if($INVALID == 0){
+        $sql = "SELECT DISTINCT LIBRO.ISBN
+                FROM LIBRO
+                WHERE LIBRO.Titolo LIKE '%$TITOLO%'";
+
+        $resForCount = mysqli_query($link, $sql);
+
+        while($rigaForCount = mysqli_fetch_array($resForCount)) {
+            $trovati++;
+        }
     }
 
     mysqli_close($link);
@@ -95,14 +104,15 @@
     </div>
     <!-- fine barra di navigazione -->
 
-        <!-- inizio form -->
+        <!-- inizio form res -->
         <div id="formRes">
 
             <a href="./user-search.php">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
             
             <h1>ESITO RICERCA LIBRI</h1>
-
+            <?php echo $INVALID; ?>
             <?php if($INVALID == 1) { ?>
+                <p><b>'<?php echo $trovati; ?>'</b> risultati trovati in base alla ricerca '<?php echo $TITOLO; ?>'</p>
                 <p>OPS :(</p>
                 <p>Sembra che non ci siano libri che corrispondano alla tua ricerca. <a href="ricerca-libro.html">Riprova cliccando qui</a></p>
                 <p>Se il problema persiste contatta l'amministratore</p>
@@ -154,7 +164,7 @@
             <a href="./user-search.php">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
 
         </div>
-        <!-- fine form -->
+        <!-- fine form res-->
 
     </body>
 
