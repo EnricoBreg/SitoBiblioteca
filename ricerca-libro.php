@@ -5,20 +5,25 @@
     $TITOLO = $_POST['TITOLO'];
     $MATRICOLA = $_POST["MATRICOLA"];
     $INVALID = 0; // Variabile di controllo
+    $trovati = 0;
 
-    $sql = "SELECT LIBRO.ISBN, LIBRO.Titolo, LIBRO.AnnoPubblicazione, LIBRO.Categoria, LIBRO.Lingua, AUTORE.Nome AS NomeA, AUTORE.Cognome AS CognomeA, EDITORE.Nome AS EDITORE
+    $sql = "SELECT LIBRO.ISBN, LIBRO.Titolo, LIBRO.AnnoPubblicazione, LIBRO.Categoria, LIBRO.Lingua, AUTORE.Nome AS NomeA, AUTORE.Cognome AS CognomeA, EDITORE.Nome AS Editore
     FROM LIBRO, SCRIVE, AUTORE, EDITORE
     WHERE LIBRO.Titolo LIKE '%$TITOLO%' AND LIBRO.ISBN = SCRIVE.ISBN AND SCRIVE.CodiceA = AUTORE.CodiceAutore AND LIBRO.CodiceE = EDITORE.CodiceEditore";
 
     $res = mysqli_query($link, $sql);    
     $resCopy = mysqli_query($link, $sql);
+    $resForCount = mysqli_query($link, $sql);
 
-    $temp = mysqli_fetch_array($resCopy);
-    if($temp['ISBN'] == "") {
-        $INVALID = 1;
+    while($temp = mysqli_fetch_array($resCopy)) {
+        if($temp['ISBN'] == "") {
+            $INVALID = 1;
+        }
     }
 
-    $row = mysqli_fetch_array($res);
+    while($rowForCount = mysqli_fetch_array($resForCount)) {
+        $trovati++;
+    }
 
     mysqli_close($link);
 
@@ -92,9 +97,11 @@
 
         <!-- inizio form -->
         <div id="formRes">
-            <h1>INFORMAZIONI STUDENTE RICERCATO</h1>
-            <p>Qui sotto sono riportare le informazioni per lo studente ricercato.</p>
+
+            <a href="./user-search.php">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
             
+            <h1>ESITO RICERCA LIBRI</h1>
+
             <?php if($INVALID == 1) { ?>
                 <p>OPS :(</p>
                 <p>Sembra che non ci siano libri che corrispondano alla tua ricerca. <a href="ricerca-libro.html">Riprova cliccando qui</a></p>
@@ -102,7 +109,8 @@
             <?php }
             else {
             ?>
-                <table id="lang-table">
+                <p><b>'<?php echo $trovati; ?>'</b> risultati trovati in base alla ricerca '<?php echo $TITOLO; ?>'</p>
+                <table id="TableStyle">
                 <thead>
                     <th>ISBN</th>
                     <th>Titolo</th>
@@ -115,6 +123,7 @@
                 <tbody>
                     <tr>
                     <?php
+                    $iter = 0;
                     while($riga = mysqli_fetch_array($res)) { ?>
 
                         <?php
