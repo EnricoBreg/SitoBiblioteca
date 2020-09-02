@@ -1,10 +1,28 @@
+<?php 
+
+    include_once("connection_test.php");
+
+    $ISBN = $_POST['ISBN'];
+    $NumeroCopia = $_POST['NumeroCopia'];
+
+    $sql = "DELETE FROM PRESTITO
+            WHERE PRESTITO.ISBN = '$ISBN' AND PRESTITO.NumeroCopia = '$NumeroCopia'";
+    
+    $res = mysqli_query($link, $sql);
+
+    $affected_rows = mysqli_affected_rows($link);
+
+    mysqli_close($link);
+
+?>
+
 <!DOCTYPE html>
 <html>
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Registrazione rientro - Biblioteca Universitaria</title>
+        <title>Ricerca stutente - Biblioteca Universitaria</title>
         <link rel="stylesheet" style="text/css" href="./myStyles.css">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     </head>
@@ -64,29 +82,20 @@
     </div>
     <!-- fine barra di navigazione -->
 
-        <!-- inizio form -->
-        <div id="form">
-            <!-- Form per ricerca studente tramite codice matricola -->
-
-            <form action="registra-rientro.php" method="POST">
-                
-                <h1>REGISTRA IL RIENTRO</h1>
-                <p>(*)Campi obbligatori</p>
-                <p>Inserisci i dati del libro richiesti</p>
-                
-                <label>ISBN:</label>
-                <input required type="text" name="ISBN" placeholder="123456789-1">
-
-                <label>Numero Copia:</label>
-                <input required type="text" name="NumeroCopia" placeholder="432">
-
-                <br/><input type="submit" value="Conferma"><br/>                
-
-            </form>
-
-            <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
-
+        <!-- inizio form res -->
+        <div id="formRes">
+            <h1>ESITO REGISTRAZIONE DEL RIENTRO</h1>
+            <?php if($affected_rows > 0) { ?>    
+                <p>Cancellazione del prestito avvenuta con successo!</p>
+                <a href="./registra-rientro.html">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
+            <?php }
+            else { ?>
+                <p>OPS :(</p>
+                <p>Sembra che i dati inseriti non siano corretti. Nessun prestito trovato relativo ai dati inseriti.</p>
+                <p>Riprova <a href="./registra-rientro.html">cliccando qui</a></p>
+            <?php } ?>
         </div>
+        <!-- fine form res -->
 
     </body>
 
