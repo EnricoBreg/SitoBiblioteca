@@ -105,7 +105,7 @@
             <input required type="text" name="Nome" placeholder="es. Pst Edizioni"><br/>
 
             <label>Via:*</label><br/>
-            <input required type="text" name="Cognome" placeholder="es. Via degli Editori Riuniti"><br/>
+            <input required type="text" name="Via" placeholder="es. Via degli Editori Riuniti"><br/>
             
             <label>Numero civico:*</label>
             <input required type="text" name="NumeroCivico" placeholder="es. 8"><br/>

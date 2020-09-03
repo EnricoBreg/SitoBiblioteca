@@ -11,7 +11,7 @@
     $TELEFONO       = $_POST['Telefono'];
 
     $sql = "INSERT INTO EDITORE (CodiceEditore, Nome, Via, NumeroCivico, Citta, CAP, Email, Telefono)
-            VALUES ('$CODICEAUTORE', '$NOME', '$VIA', '$NUMEROCIVICO', '$CITTA', '$CAP', '$EMAIL', '$TELEFONO')";
+            VALUES ('$CODICEEDITORE', '$NOME', '$VIA', '$NUMEROCIVICO', '$CITTA', '$CAP', '$EMAIL', '$TELEFONO')";
 
     $res = mysqli_query($link, $sql);
 
