@@ -80,8 +80,9 @@
             <li><a href="http://www.unife.it/it/ateneo/strutture-uffici/dipartimenti-e-facolta" target="__blank">Dipartimenti</a></li>
             <li><a href="./menu.html">Libri</a>
                 <ul>
-                    <li><a href="./book-sigin-1.php">Registra nuovo libro</a>
-                    <li><a>Registra nuova copia (libro esistente)</a></li>
+                    <li><a href="./book-signup-1.php">Registra nuovo libro</a>
+                    <li><a href="registra-copia-1.php">Registra nuova copia (libro esistente)</a></li>
+                    <li><a href="./ricerca-libro.html">Ricerca un libro</a></li>
                     <li><a href="./all-books.php">Visualizza tutti i libri nel DB</a></li>
                 </ul>
                 </li>
@@ -116,7 +117,6 @@
         </ul>
     </div>
     <!-- fine barra di navigazione -->
-
         <!-- inizio form res -->
         <div id="formRes">
             <h1>ESITO REGISTRAZIONE DELLA COPIA DI UN LIBRO ESISTENTE</h1>
