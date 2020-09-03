@@ -21,8 +21,8 @@
 
     if($proroghe_rimaste > 0) {
         $sql = "UPDATE PRESTITO
-            SET DataPrestito = CURRENT_DATE(), ContProroghe = ContProroghe - 1
-            WHERE ISBN = '$ISBN' AND NumeroCopia = '$NumeroCopia'";
+        SET DataPrestito = DATE_ADD(DataPrestito, INTERVAL 60 DAY), ContProroghe = ContProroghe - 1
+        WHERE ISBN = '$ISBN' AND NumeroCopia = '$NumeroCopia'";
 
         mysqli_query($link, $sql);
         $affected_rows = mysqli_affected_rows($link);
@@ -108,12 +108,12 @@
                <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
             <?php } 
             else { ?>
-                <?php echo $proroghe_rimaste; ?>
                 <!-- L'errore è in proroghe -->
                 <?php if($proroghe_rimaste == 0) { ?>
                     <p>ATTENZIONE! Il prestito inserito non ha più proroghe disponibili.</p>
                     <p>Registrazione proroga non disponibile.</p>
-                <?php } ?>
+                    <?php exit(-1); 
+                } ?>
                 
                 <!-- Allora affected_rows = 0 -->
                 <p>OPS :(</p>
