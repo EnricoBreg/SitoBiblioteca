@@ -101,6 +101,8 @@
                 <li>Luogo Nascita: <?php echo $LUOGONASCITA ?></li>
             </b></ul>
             <?php } ?>
+            <a href="./author-reg.php">Registra un altro autore &#x2934;</a>| <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a>
+        </div>
 
     </body>
 

@@ -108,6 +108,8 @@
                 </b>
             </ul>
             <?php } ?>
+        </div>
+        <a href="./pub-reg.php">Registra un altro editore &#x2934;</a>| <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a>
 
     </body>
 
