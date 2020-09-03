@@ -2,12 +2,17 @@
 
     include_once("connection_test.php");
 
+    $INVALID = 0;
     $Matricola = $_POST['Matricola'];
     $sql = "SELECT * FROM STUDENTE WHERE Matricola='$Matricola'";
 
     $res = mysqli_query($link, $sql);
 
     $riga = mysqli_fetch_array($res);
+    
+    if($riga['Matricola'] == "") {
+        $INVALID = 1;
+    }
 
     mysqli_close($link);
 ?>
@@ -81,46 +86,56 @@
         <div id="form">
             <form action="aggiornamento_utente3.php" method="POST">
                 <h1>AGGIORNA/MODIFICA UTENTE</h1>
-                <p>Aggiornamento dello studente con Matricola <?php echo $Matricola; ?> </p>
-                <p>ATTEZIONE! Per modificare il campo matricola è necessario contattare l'amministratore del sistema</p>
-                <label>Matricola:</label><br/>
-                <input readonly required="required" type="text" name="Matricola" value="<?php echo $riga['Matricola'] ?>"><br/>
+                
+                <?php if($INVALID == 1) { ?>
+                    <p>Sembra che la matricola inserita non corrisponda a nessun utente registrato nel Database.</p>
+                    <p>Assicurati di aver inserito correttamente il valore nel campo 'Matricola'.</p>
+                    <p>Riprova <a href="./aggiornamento_utente1.html">cliccando qui</a></p>
+                    <p>Se il problema persiste contattare l'amministratore.</p>
+                <?php } 
+                else { ?>
+                
+                    <p>Aggiornamento dello studente con Matricola <?php echo $Matricola; ?> </p>
+                    <p>ATTEZIONE! Per modificare il campo matricola è necessario contattare l'amministratore del sistema</p>
+                    <label>Matricola:</label><br/>
+                    <input readonly required="required" type="text" name="Matricola" value="<?php echo $riga['Matricola'] ?>"><br/>
 
-                <label>Nome:</label>
-                <input type="text" name="Nome" value="<?php echo $riga['Nome'] ?>"><br/>
+                    <label>Nome:</label>
+                    <input type="text" name="Nome" value="<?php echo $riga['Nome'] ?>"><br/>
 
-                <label>Cognome:</label>
-                <input type="text" name="Cognome" value="<?php echo $riga['Cognome'] ?>"><br/>
+                    <label>Cognome:</label>
+                    <input type="text" name="Cognome" value="<?php echo $riga['Cognome'] ?>"><br/>
 
-                <label>Genere ('ND' se non dichiarato):</label>
-                <input maxlength="1" type="text" name="Sesso" value="<?php echo $riga['Sesso'] ?> "><br/>
+                    <label>Genere ('ND' se non dichiarato):</label>
+                    <input maxlength="1" type="text" name="Sesso" value="<?php echo $riga['Sesso'] ?> "><br/>
 
-                <label>Data di nascita:</label>
-                <input type="date" name="DataNascita" value="<?php echo $riga['DataNascita'] ?>"><br/>
+                    <label>Data di nascita:</label>
+                    <input type="date" name="DataNascita" value="<?php echo $riga['DataNascita'] ?>"><br/>
 
-                <label>Corso di studi:</label>
-                <input type="text" name="CdS" value="<?php echo $riga['CdS'] ?>"><br/>
+                    <label>Corso di studi:</label>
+                    <input type="text" name="CdS" value="<?php echo $riga['CdS'] ?>"><br/>
 
-                <label>Indirizzo:</label>
-                <input type="text" name="Via" value="<?php echo $riga['Via'] ?>"><br/>
+                    <label>Indirizzo:</label>
+                    <input type="text" name="Via" value="<?php echo $riga['Via'] ?>"><br/>
 
-                <label>Numero civico:</label>
-                <input type="text" name="NumeroCivico" value="<?php echo $riga['NumeroCivico'] ?>"><br/>
+                    <label>Numero civico:</label>
+                    <input type="text" name="NumeroCivico" value="<?php echo $riga['NumeroCivico'] ?>"><br/>
 
-                <label>Città:</label>
-                <input type="text" name="Citta" value="<?php echo $riga['Citta'] ?>"><br/>
+                    <label>Città:</label>
+                    <input type="text" name="Citta" value="<?php echo $riga['Citta'] ?>"><br/>
 
-                <label>CAP:</label>
-                <input type="text" name="CAP" value="<?php echo $riga['CAP'] ?>"><br/>
+                    <label>CAP:</label>
+                    <input type="text" name="CAP" value="<?php echo $riga['CAP'] ?>"><br/>
 
-                <label>Email:</label>
-                <input type="text" name="Email" value="<?php echo $riga['Email'] ?>"><br/>
+                    <label>Email:</label>
+                    <input type="text" name="Email" value="<?php echo $riga['Email'] ?>"><br/>
 
-                <label>Telefono:</label>
-                <input type="text" name="Telefono" value="<?php echo $riga['Telefono'] ?>"><br/>
+                    <label>Telefono:</label>
+                    <input type="text" name="Telefono" value="<?php echo $riga['Telefono'] ?>"><br/>
 
-                <br/><input type="submit" value="Procedi"><br/>
-                <p><a href="index.html">Annulla e torna alla home</a></p>
+                    <br/><input type="submit" value="Procedi"><br/>
+                    <p><a href="index.html">Annulla e torna alla home</a></p>
+                <?php } ?>
             </form>
         </div>
         <!-- fine form -->

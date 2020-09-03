@@ -2,11 +2,6 @@
 
     include_once("connection_test.php");
 
-    $sql = "SELECT * FROM STUDENTE WHERE Matricola='$Matricola'";
-
-    $res1 = mysqli_query($link, $sql);
-    $riga = mysqli_fetch_array($res1);
-
     $Matricola = $_POST['Matricola'];
     $Nome = $_POST['Nome'];
     $Cognome= $_POST['Cognome'];
@@ -19,6 +14,11 @@
     $CAP = $_POST['CAP'];
     $Email = $_POST['Email'];
     $Telefono = $_POST['Telefono'];
+
+    $sql = "SELECT * FROM STUDENTE WHERE Matricola='$Matricola'";
+
+    $res1 = mysqli_query($link, $sql);
+    $riga = mysqli_fetch_array($res1);
 
     $sql = "UPDATE STUDENTE
             SET Nome='$Nome', Cognome='$Cognome', DataNascita='$DataNascita', Sesso='$Sesso', CdS='$CdS', Via='$Via', 
@@ -98,98 +98,94 @@
 
         <!-- inizio form -->
         <div id="formRes">
-            <form action="aggiornamento_utente2.php" method="POST">
-                <h1>AGGIORNA/MODIFICA UTENTE</h1>
-                <p>Aggiornamento dello studente terminato con successo!</p>
-                <p>Riepilogo dei dati aggiornati/modificati</p>
-                
-                <table id="userChangesTable">
-                    <thead>
-                        <tr>
-                            <td>Campo</td>
-                            <td>VECCHIO</td>
-                            <td>&#x279C;</td>
-                            <td>NUOVO</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Matricola:</td>
-                            <td> <?php echo $riga['Matricola'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $Matricola ?> </b> </td>
-                        </tr>
-                        <tr>
-                            <td>Nome:</td>
-                            <td> <?php echo $riga['Nome'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $Nome ?> </b> </td>
-                        </tr>
-                        <tr>
-                            <td>Cognome:</td>
-                            <td> <?php echo $riga['Cognome'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $Cognome ?> </b> </td>
-                        </tr>
-                        <tr>
-                            <td>Data di nascita:</td>
-                            <td> <?php echo $riga['DataNascita'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $DataNascita ?> <b> </td>
-                        </tr>
-                        <tr>
-                            <td>Genere:</td>
-                            <td> <?php echo $riga['Sesso'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $Sesso ?> </b> </td>
-                        </tr>
-                        <tr>
-                            <td>CdS:</td>
-                            <td> <?php echo $riga['CdS'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $CdS ?> </b> </td>
-                        </tr>
-                        <tr>
-                            <td>Email:</td>
-                            <td> <?php echo $riga['Email'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $Email ?> </b> </td>
-                        </tr>
-                        <tr>
-                            <td>Telefono:</td>
-                            <td> <?php echo $riga['Telefono'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $Telefono ?> </b> </td>
-                        </tr>
-                        <tr>
-                            <td>Indirizzo:</td>
-                            <td> <?php echo $riga['Via'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $Via ?> </b> </td>
-                        </tr>
-                        <tr>
-                            <td>Numero civico:</td>
-                            <td> <?php echo $riga['NumeroCivico'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $NumeroCivico ?> </b> </td>
-                        </tr>
-                        <tr>
-                            <td>Città:</td>
-                            <td> <?php echo $riga['Citta'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $Citta ?> </b> </td>
-                        </tr>
-                        <tr>
-                            <td>CAP:</td>
-                            <td> <?php echo $riga['CAP'] ?> </td>
-                            <td>&#x279C;</td>
-                            <td> <b> <?php echo $CAP ?> </b> </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-            </form>
+            <h1>AGGIORNA/MODIFICA UTENTE</h1>
+            <p>Aggiornamento dello studente terminato con successo!</p>
+            <p>Riepilogo dei dati aggiornati/modificati:</p>
+            <table id="userChangesTable">
+                <thead>
+                    <tr>
+                        <td>Campo</td>
+                        <td>VECCHIO</td>
+                        <td>&#x279C;</td>
+                        <td><b>NUOVO</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Matricola:</td>
+                        <td> <?php echo $riga['Matricola'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $Matricola ?> </b> </td>
+                    </tr>
+                    <tr>
+                        <td>Nome:</td>
+                        <td> <?php echo $riga['Nome'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $Nome ?> </b> </td>
+                    </tr>
+                    <tr>
+                        <td>Cognome:</td>
+                        <td> <?php echo $riga['Cognome'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $Cognome ?> </b> </td>
+                    </tr>
+                    <tr>
+                        <td>Data di nascita:</td>
+                        <td> <?php echo $riga['DataNascita'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $DataNascita ?> <b> </td>
+                    </tr>
+                    <tr>
+                        <td>Genere:</td>
+                        <td> <?php echo $riga['Sesso'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $Sesso ?> </b> </td>
+                    </tr>
+                    <tr>
+                        <td>CdS:</td>
+                        <td> <?php echo $riga['CdS'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $CdS ?> </b> </td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td> <?php echo $riga['Email'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $Email ?> </b> </td>
+                    </tr>
+                    <tr>
+                        <td>Telefono:</td>
+                        <td> <?php echo $riga['Telefono'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $Telefono ?> </b> </td>
+                    </tr>
+                    <tr>
+                        <td>Indirizzo:</td>
+                        <td> <?php echo $riga['Via'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $Via ?> </b> </td>
+                    </tr>
+                    <tr>
+                        <td>Numero civico:</td>
+                        <td> <?php echo $riga['NumeroCivico'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $NumeroCivico ?> </b> </td>
+                    </tr>
+                    <tr>
+                        <td>Città:</td>
+                        <td> <?php echo $riga['Citta'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $Citta ?> </b> </td>
+                    </tr>
+                    <tr>
+                        <td>CAP:</td>
+                        <td> <?php echo $riga['CAP'] ?> </td>
+                        <td>&#x279C;</td>
+                        <td> <b> <?php echo $CAP ?> </b> </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a>
         </div>
         <!-- fine form -->
 
