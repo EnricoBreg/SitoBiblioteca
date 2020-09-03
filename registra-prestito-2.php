@@ -2,14 +2,25 @@
     /* DA RIVEREDERE ALCUNI PUNTI */
     include_once("connection_test.php");
 
-    
+    $INVALID = 0; // variabile di controllo
     $ID = $_POST['ID'];
     $DATA_INIZIO = $_POST['Data'];
     $ISBN = $_POST['ISBN'];
     $NUMEROCOPIA = $_POST['NumeroCopia'];
     $MATRICOLA = $_POST['Matricola'];
-    $CODICEBIBLIOTECA = $_POST['CodiceBiblioteca'];
     $CONTPROROGHE = 2;
+
+    // Estrazione del Codice biblioteca dal database
+    $sql = "SELECT CodiceB
+            FROM COPIA
+            WHERE Numero='$NUMEROCOPIA' AND ISBN = '$ISBN'";
+    $resCodB = mysqli_query($link, $sql);
+    $rigaCodB = mysqli_fetch_array($resCodB);
+    $CODICEBIBLIOTECA = $rigaCodB['CodiceB'];
+    
+    if($CODICEBIBLIOTECA == "" || $CODICEBIBLIOTECA == NULL){
+        $INVALID = 1;
+    }
 
     // Generazione della data per la scadenza del prestito (30 giorni da DATA_INIZIO)
     $DATA_FINE = date_create($_POST['Data']);
@@ -19,6 +30,9 @@
             VALUES ('$ID', '$DATA_INIZIO', '$CONTPROROGHE', '$ISBN', '$NUMEROCOPIA', '$MATRICOLA', '$CODICEBIBLIOTECA')";
     
     $resInserimento = mysqli_query($link, $sql);
+    if($resInserimento == NULL) {
+        $INVALID = 1;
+    }
 
     // Estrazione di NOME, COGNOME per stampa a video
     $sql = "SELECT Nome, Cognome
@@ -111,7 +125,7 @@
         <div id="formRes">
 
             <?php // Verifica del corretto inserimento del prestito nel database
-                if($resInserimento == NULL){ ?>
+                if($INVALID == 1){ ?>
                 <h1>ESITO REGISTRAZIONE NUOVO PRESTITO</h1>
                 <p>Qualcosa non è andato a buon fine durante la registrazione del prestito :(</p>
                 <p>Prova a controllare che la copia non sia già in prestito.</p>

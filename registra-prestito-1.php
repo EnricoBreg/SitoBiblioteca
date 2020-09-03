@@ -3,20 +3,13 @@
 
     $MAX_ID = 0;
     $ID = 0;
-
-
-    $sql = "SELECT CodiceBiblioteca, NomeDipartimento 
-            FROM BIBLIOTECA
-            ORDER BY NomeDipartimento";
-
-    $res1 = mysqli_query($link, $sql);
     
     $sql = "SELECT ID 
             FROM PRESTITO";
 
-    $res2 = mysqli_query($link, $sql);
+    $res = mysqli_query($link, $sql);
     
-    while($riga = mysqli_fetch_array($res2)) {
+    while($riga = mysqli_fetch_array($res)) {
         if($riga['ID'] != "") {
             $ID = $riga['ID'];
             if($MAX_ID < $ID){
@@ -116,15 +109,6 @@
 
                 <label>Matricola Studente richiedente prestito:*</label><br/>
                 <input required type="text" name="Matricola"><br/>
-
-                <label>Codice Biblioteca:* </label>
-                <select required name="CodiceBiblioteca" class="selectStyle">
-
-                    <?php while($riga = mysqli_fetch_array($res1)) { ?>
-                        <option value="<?php echo $riga['CodiceBiblioteca']; ?>"> <?php echo $riga['CodiceBiblioteca'] . " - " . $riga['NomeDipartimento'] ?> </option>
-                    <?php } ?>
-
-                </select>
 
                 <br/><input type="submit" value="Conferma nuovo prestito"><br/>
             </form>
