@@ -131,7 +131,6 @@
 
             <label>Lingua:*</label>
             <select required name="Lingua" class="selectStyle">
-                <option value=""> --- SELEZIONA LINGUA --- </option>
                 
                 <?php while($riga3 = mysqli_fetch_array($res3)) { ?>
                     <option value="<?php echo $riga3['Lingua'] ?>"> <?php echo $riga3['Lingua'] ?> </option>
