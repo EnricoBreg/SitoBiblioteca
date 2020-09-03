@@ -17,6 +17,7 @@
 
     $res = mysqli_query($link, $sql);
     $resCopy = mysqli_query($link, $sql);
+    $resCopy2 = mysqli_query($link, $sql);
     
     /* INVALID è una variabile dummy per indicare se lo studente ha effettivamente dei libri in prestito 
      * INVALID = 0 -> Ha dei libri in prestito 
@@ -27,9 +28,13 @@
     while($temp = mysqli_fetch_array($resCopy)) {
         if($temp["Titolo"] != "")
             $COUNTER++;
-        else 
-            $INVALID = 1;
     }
+
+    $temp2 = mysqli_fetch_row($resCopy2);
+    if($temp2['Titolo'] == "" && $COUNTER == 0) {
+        $INVALID = 1;
+    }
+
 
     $sql = "SELECT Nome, Cognome
             FROM STUDENTE
@@ -109,13 +114,13 @@
         <!-- inizio form -->
         <div id="formRes">
             <h1>CONSULTAZIONE PRESTITI ATTIVI STUDENTE</h1>
-            <p>Situazione prestiti per lo studente <b><?php echo $NOME . " " . $COGNOME . " (Matricola: " . $MATRICOLA . ")" ?></b></p>
-            <p>Lo studente ha attualmente in prestito <b><?php echo $COUNTER; ?> libri:</b></p>
-            
-            <?php if($INVALID == 1)
-                echo "Sembra che lo studente inserito non abbia ancora libri in prestito. Riprovare con un altra matricola";
+            <?php if($INVALID == 1) { ?>
+                <p>Sembra che lo studente con Matricola <b><?php echo $MATRICOLA; ?></b> non esista o non abbia ancora prestiti attivi.</p>
+            <?php }
             else {
             ?>
+                <p>Situazione prestiti per lo studente <b><?php echo $NOME . " " . $COGNOME . " (Matricola: " . $MATRICOLA . ")" ?></b></p>
+                <p>Lo studente ha attualmente in prestito <b><?php echo $COUNTER; ?> libri:</b></p>
                 <table id="TableStyle">
                     <thead>
                         <tr>
