@@ -138,7 +138,7 @@
                 <p>Registrazione del prestito completata con successo!</p>
                 <p>STUDENTE: <?php echo $NOME . " " . $COGNOME . " (Matr. " . $MATRICOLA . ")"; ?></p>
                 <p><b>ID PRESTITO: <?php echo $ID ?></b></p>
-                <p>ISBN/NUMERO COPIA: <?php echo $ISBN . "/" . $NUMEROCOPIA; ?></p>
+                <p>ISBN/NUMERO COPIA: <?php echo $ISBN . "/" . $NUMEROCOPIA . " (" . $TITOLO . ")"; ?></p>
                 <p>TITOLO: <?php echo $TITOLO; ?></p>
                 <p><b>SCADENZA DEL PRESTITO: <?php echo date_format($DATA_FINE, "d-m-Y"); ?> 
                 </b> (a 30 gg da data ordierna).</p>
