@@ -3,15 +3,17 @@
     include_once("connection_test.php");
 
     // Query per EDITORI
-    $ISBN               = $_POST['ISBN'];
-    $TITOLO             = $_POST['Titolo'];
-    $ANNOPUBBLICAZIONE  = $_POST['AnnoPubblicazione'];
-    $EDITORE            = $_POST['Editore'];
-    $CATEGORIA          = $_POST['Categoria'];
-    $LINGUA             = $_POST['Lingua'];
+    $sql = "SELECT CodiceEditore, Nome FROM EDITORE";
+    $res1 = mysqli_query($link, $sql);
 
-    $sql = "SELECT * FROM AUTORE";
-    $res = mysqli_query($link, $sql);
+    // Query per categoria libro
+    $sql = "SELECT DISTINCT Categoria FROM LIBRO ORDER BY Categoria";
+    $res2 = mysqli_query($link, $sql);
+
+
+    // Query per categoria lingua
+    $sql = "SELECT DISTINCT Lingua FROM LIBRO ORDER BY Lingua";
+    $res3 = mysqli_query($link, $sql);
 
     mysqli_close($link);
 ?>
@@ -22,7 +24,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registrazione nuovo libro Passo 2 - Biblioteca Universitaria</title>
+    <title>Registrazione nuovo libro Passo 1 - Biblioteca Universitaria</title>
     <link rel="stylesheet" style="text/css" href="./myStyles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -81,62 +83,62 @@
         </ul>
     </div>
     <!-- fine barra di navigazione -->
+
     <!-- inizio form -->
     <div id="form">
-        <form action="book-sigin-3-fin.php" method="POST">
+        <form action="book-signup-2.php" method="POST">
+            <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
             <h4>PROCEDURA DI REGISTRAZIONE NUOVO LIBRO</h4>
-            <h1>PASSO 2: INSERISCI I CODICI AUTORI</h1>
+            <h1>PASSO 1: INSERISCI I DATI DEL LIBRO</h1>
+            <p>(*)Campi obbligatori</p>
+            <p>Se i dati da inserire presentano dei singoli apici/apostrofi ( ' ) sostituirli con uno spazio.<br/>
+            Ad esempio:
+            <ul>
+            <li>Giovanna D'Arco &#x2192; Giovanna D Arco</li>
+            <li>L'Aquila &#x2192; L Aquila</li></p>
+            </ul>
             
-            <!-- Fields Resume list -->
-            <label>ISBN:</label><br/>
-            <input readonly type="text" name="ISBN" value="<?php echo $ISBN ?>"><br/>
+            <!-- Fields Insert -->
+            <label>ISBN:*</label><br/>
+            <input required type="text" name="ISBN" maxlength="11" placeholder="es. XXXXXXXXX-X"><br/>
 
-            <label>Titolo:</label><br/>
-            <input readonly type="text" name="Titolo" value="<?php echo $TITOLO ?>"><br/>
+            <label>Titolo:*</label><br/>
+            <input required type="text" name="Titolo" placeholder="es. Una giornata nell Antica Roma"><br/>
 
-            <label>Anno Pubblicazione:</label><br/>
-            <input readonly type="text" name="AnnoPubblicazione" value="<?php echo $ANNOPUBBLICAZIONE ?>"><br/>
+            <label>Anno Pubblicazione:*</label><br/>
+            <input required type="text" name="AnnoPubblicazione" placeholder="es. 2007"><br/>
             
-            <label>Editore:</label>
-            <input readonly type="text" name="Editore" value="<?php echo $EDITORE ?>">
+            <label>Editore:*</label>
+            <select required name="Editore" class="selectStyle">
+                <option value=""> --- SELEZIONA EDITORE --- </option>
 
-            <label>Categoria:</label>
-            <input readonly type="text" name="Categoria" value="<?php echo $CATEGORIA ?>"><br/>
-
-            <label>Lingua:</label>
-            <input readonly type="text" name="Lingua" value="<?php echo $LINGUA ?>">
-
-            <!-- Inserimento autori -->
-            <label>Codice autore (se il libro presenta più di un autore, inserire i codici separati da spazi):</label>
-            <input required type="text" name="Autori" placeholder="es. 1 oppure 10 30 133...">
+                <?php while($riga1 = mysqli_fetch_array($res1)) { ?>
+                    <option value="<?php echo $riga1['CodiceEditore'] ?>"> <?php echo $riga1['CodiceEditore'] . " - " . $riga1['Nome']?> </option>
+                <?php } ?>
             
-            <br/><input type="submit" value="Conferma e termina"><br/>
+            </select><p class="text-advs">&#x2192; Editore non presente nella lista? <a href="pub-reg.php">Clicca qui</a>, per registrarlo!</p>
 
-            <p>Autore non presente? Vai a questo <a href="./author-reg.php">link</a> per registrarlo.</p>
-            <p>Tutti gli autori presenti nel DataBase con relativo codice autore: </p>
-            <table id="TableStyle">
-                <thead>
-                    <tr>
-                        <th>ID Autore</th>
-                        <th>Nominativo</th>
-                        <th>Data di nascita</th>
-                        <th>Luogo di nascita</th>
-                    </tr>
-                </thead>
-                <tbody>
+
+            <label>Categoria:*</label>
+            <input required list="Categoria" name="Categoria" class="selectStyle" placeholder="--- SELEZIONARE CATEGORIA ---">
+            <datalist id="Categoria">
+
+                <?php while($riga2 = mysqli_fetch_array($res2)) { ?>
+                    <option value="<?php echo $riga2['Categoria'] ?>">
+                <?php } ?>
+
+            </datalist><br/>
+
+            <label>Lingua:*</label>
+            <select required name="Lingua" class="selectStyle">
                 
-                    <?php while($riga = mysqli_fetch_array($res)) { ?>
-                        <tr>
-                            <td> <?php echo $riga['CodiceAutore']; ?> </td>
-                            <td> <?php echo $riga['Nome'] . " " . $riga['Cognome']; ?> </td>
-                            <td> <?php echo $riga['DataNascita']; ?> </td>
-                            <td> <?php echo $riga['LuogoNascita']; ?> </td>
-                        </tr>
-                    <?php } ?>
+                <?php while($riga3 = mysqli_fetch_array($res3)) { ?>
+                    <option value="<?php echo $riga3['Lingua'] ?>"> <?php echo $riga3['Lingua'] ?> </option>
+                <?php } ?>
 
-                </tbody>
-            </table>
+            </select><br/>            
 
+            <br/><input type="submit" value="Continua al passo 2"><br/>
         </form>
     </div>
     <!-- fine form -->

@@ -159,7 +159,7 @@
                     </tr>
             </tbody>
         </table>
-
+        <a href="./book-signup-1.php">Registra un altro libro &#x2934;</a>| <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a>                           
     </div>
     <!-- fine form -->
 
