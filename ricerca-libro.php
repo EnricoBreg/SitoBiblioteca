@@ -110,7 +110,6 @@
             <a href="./user-search.php">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
             
             <h1>ESITO RICERCA LIBRI</h1>
-            <?php echo $INVALID; ?>
             <?php if($INVALID == 1) { ?>
                 <p><b>'<?php echo $trovati; ?>'</b> risultati trovati in base alla ricerca '<?php echo $TITOLO; ?>'</p>
                 <p>OPS :(</p>

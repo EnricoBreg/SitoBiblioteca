@@ -4,8 +4,7 @@
 
     $sql = "SELECT LIBRO.ISBN, LIBRO.Titolo, LIBRO.AnnoPubblicazione, LIBRO.Categoria, LIBRO.Lingua, AUTORE.Nome AS NomeA, AUTORE.Cognome AS CognomeA, EDITORE.Nome AS Editore
             FROM LIBRO, AUTORE, SCRIVE, EDITORE
-            WHERE LIBRO.ISBN = SCRIVE.ISBN AND AUTORE.CodiceAutore = SCRIVE.CodiceA AND EDITORE.CodiceEditore = LIBRO.CodiceE
-            ORDER BY LIBRO.AnnoPubblicazione ASC";
+            WHERE LIBRO.ISBN = SCRIVE.ISBN AND AUTORE.CodiceAutore = SCRIVE.CodiceA AND EDITORE.CodiceEditore = LIBRO.CodiceE";
 
     $res = mysqli_query($link, $sql);
 
