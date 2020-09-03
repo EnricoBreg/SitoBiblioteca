@@ -91,9 +91,9 @@
 
     <div id="formRes">
 
-        <a href="./user-search.php">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
+        <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
 
-        <h1>ESITO RICERCA LIBRI</h1>
+        <h1>VISUALIZZA TUTTI I LIBRI</h1>
 
         <?php if($INVALID == 1) { ?>
             <p>OPS :(</p>
@@ -144,7 +144,7 @@
             </tbody>
         </table>
         <?php } ?>
-        <a href="./user-search.php">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
+        <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
 
         </div>
     </body>
