@@ -98,7 +98,6 @@
                         <th>Titolo del libro</th>
                         <th>Studente richiedente</th>
                         <th>Codice Biblio - Sede</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
