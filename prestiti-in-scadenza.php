@@ -2,14 +2,23 @@
 
     include_once("connection_test.php");
 
-    $GiorniAllaScandenza = $_POST['GiorniAllaScandenza'];
+    $GiorniAllaScadenza = $_POST['GiorniAllaScadenza'];
+    $counter = 0;
 
     // Estrazione dal DB di tutti i prestiti
     // mi piacerebbe far vedere la data di fine, ma come fare da PHP o MYSQL???????
     $sql = "SELECT PRESTITO.ID, PRESTITO.Matricola, STUDENTE.Nome, STUDENTE.Cognome, PRESTITO.ISBN, PRESTITO.NumeroCopia, LIBRO.Titolo, PRESTITO.DataPrestito, DATE_ADD(PRESTITO.DataPrestito, INTERVAL 30 DAY) as DataFinePrestito, DATEDIFF(DATE_ADD(PRESTITO.DataPrestito, INTERVAL 30 DAY), CURDATE()) as GiorniAllaScadenza
             FROM PRESTITO, STUDENTE, LIBRO
-            WHERE DATEDIFF(DATE_ADD(DataPrestito, INTERVAL 30 DAY), CURDATE()) <= '$GiorniAllaScandenza' AND STUDENTE.Matricola = PRESTITO.Matricola AND LIBRO.ISBN = PRESTITO.ISBN";
+            WHERE DATEDIFF(DATE_ADD(DataPrestito, INTERVAL 30 DAY), CURDATE()) <= '$GiorniAllaScadenza' AND STUDENTE.Matricola = PRESTITO.Matricola AND LIBRO.ISBN = PRESTITO.ISBN";
     $res = mysqli_query($link, $sql);
+    $resCopy = mysqli_query($link, $sql);
+
+    while($rigaCounting = mysqli_fetch_array($resCopy)) {
+        if($rigaCounting['ID'] != "") {
+            $counter++;
+        }
+    }
+    
 
     mysqli_close($link);
 ?>
@@ -86,42 +95,52 @@
 
         <div id="formRes">
 
-            <br/><a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
+            <br/><a href="prestiti-in-scadenza.html">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
             <h1>VISUALIZZA TUTTI I PRESTITI IN SCADENZA</h1>
-            <p>Elenco dei tutti i prestiti attualmente attivi in scandenza (giorni al rientro <= '<?php echo $GiorniAllaScandenza;?>'):</p>
-            <p>&#x2192;Usa la Matricola dello studente per ricerca i sui recapiti <a href="./user-search.html">cliccando qui</a>.</p>
-            <table id="TableStyle">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Matricola</th>
-                        <th>Nominativo Studente</th>
-                        <th>ISBN / Numero Copia</th>
-                        <th>Titolo del libro</th>
-                        <th>Data Inizio</th>
-                        <th>Data Fine</th>
-                        <th>Giorni alla scadenza</th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-                    <?php while($riga = mysqli_fetch_array($res)) { ?>
+            
+            <?php if($counter == 0) { ?>
+                <p>Pare non ci siano prestiti con meno di '<?php echo $GiorniAllaScadenza; ?>' giorni alla scadenza.</p>
+                <p><a href="./prestiti-in-scadenza.html">Riprova con un altro numero di giorni.</a></p>
+            <?php } 
+            else { ?>
+            
+                <p>Elenco dei tutti i prestiti attualmente attivi in scadenza (giorni al rientro <= '<?php echo $GiorniAllaScadenza;?>'):</p>
+                <p>Ci sono: <?php echo $counter; ?> presiti in scadenza.</p>
+                <p>&#x2192;Usa la Matricola dello studente per ricerca i sui recapiti <a href="./user-search.html">cliccando qui</a>.</p>
+                <table id="TableStyle">
+                    <thead>
                         <tr>
-                            <td> <?php echo $riga['ID']; ?> </td>
-                            <td> <?php echo $riga['Matricola']; ?> </td>
-                            <td> <?php echo $riga['Nome'] . " " . $riga['Cognome']; ?> </td>
-                            <td> <?php echo $riga['ISBN'] . "/" . $riga['NumeroCopia']; ?> </td>
-                            <td> <?php echo $riga['Titolo']; ?></td>
-                            <td> <?php echo $riga['DataPrestito']; ?> </td>
-                            <td> <?php echo $riga['DataFinePrestito']; ?></td>
-                            <td> <?php echo $riga['GiorniAllaScadenza']; ?></td>
+                            <th>ID</th>
+                            <th>Matricola</th>
+                            <th>Nominativo Studente</th>
+                            <th>ISBN / Numero Copia</th>
+                            <th>Titolo del libro</th>
+                            <th>Data Inizio</th>
+                            <th>Data Fine</th>
+                            <th>Giorni alla scadenza</th>
                         </tr>
-                    <?php } ?>
+                    </thead>
+                    <tbody>
+                    
+                        <?php while($riga = mysqli_fetch_array($res)) { ?>
+                            <tr>
+                                <td> <?php echo $riga['ID']; ?> </td>
+                                <td> <?php echo $riga['Matricola']; ?> </td>
+                                <td> <?php echo $riga['Nome'] . " " . $riga['Cognome']; ?> </td>
+                                <td> <?php echo $riga['ISBN'] . "/" . $riga['NumeroCopia']; ?> </td>
+                                <td> <?php echo $riga['Titolo']; ?></td>
+                                <td> <?php echo $riga['DataPrestito']; ?> </td>
+                                <td> <?php echo $riga['DataFinePrestito']; ?></td>
+                                <td> <?php echo $riga['GiorniAllaScadenza']; ?></td>
+                            </tr>
+                        <?php } ?>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+
+            <?php } ?>
             <br/>
-            <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
+            <a href="prestiti-in-scadenza.html">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
         </div>
 
     </body>
