@@ -2,10 +2,41 @@
 
     include_once("connection_test.php");
 
-    $sql = "SELECT P.ID, P.DataPrestito AS DataInizio, DATE_ADD((SELECT DataPrestito FROM PRESTITO WHERE ID=P.ID), INTERVAL 30 DAY) AS DataFine, P.NumeroCopia, P.ISBN, P.Matricola, P.CodiceB, L.Titolo, S.Nome, S.Cognome, B.NomeDipartimento
-            FROM PRESTITO AS P, LIBRO AS L, STUDENTE AS S, BIBLIOTECA as B
-            WHERE P.ISBN = L.ISBN AND P.Matricola = S.Matricola AND B.CodiceBiblioteca = P.CodiceB";
+    $Titolo = $_POST['Titolo'];
+    $counter = 0;
+    $INVALID = 0;
+
+    $sql = "SELECT ISBN
+            FROM LIBRO
+            WHERE Titolo = '$Titolo'";
+    $resTemp = mysqli_query($link, $sql);
+    $rigaTemp = mysqli_fetch_array($resTemp);
+    if($rigaTemp['ISBN'] == "") {
+        $INVALID = 1;
+    }
+    
+    $sql = "SELECT STUDENTE.Matricola, STUDENTE.Nome, STUDENTE.Cognome, STUDENTE.CdS
+            FROM STUDENTE,
+            
+                (SELECT PRESTITO.Matricola
+                FROM PRESTITO,
+                
+                            (SELECT LIBRO.ISBN
+                            FROM LIBRO
+                            WHERE LIBRO.Titolo='$Titolo') AS ISBN_VAL
+                            
+                WHERE ISBN_VAL.ISBN=PRESTITO.ISBN) AS MATRICOLE_DATO_LIBRO
+                        
+            WHERE STUDENTE.Matricola=MATRICOLE_DATO_LIBRO.Matricola";
+
     $res = mysqli_query($link, $sql);
+    $resCopy = mysqli_query($link, $sql);
+
+    while($rigaCounting = mysqli_fetch_array($resCopy)) {
+        if($rigaCounting['Matricola'] != "") {
+            $counter++;
+        }
+    }
 
     mysqli_close($link);
 ?>
@@ -19,7 +50,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Tutti i prestiti - Biblioteca Universitaria</title>
+        <title>Libri data matricola - Biblioteca Universitaria</title>
         <link rel="stylesheet" style="text/css" href="./myStyles.css">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     </head>
@@ -82,40 +113,49 @@
 
         <div id="formRes">
 
-            <br/><a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
-            <h1>VISUALIZZA TUTTI I PRESTITI</h1>
-            <p>Elenco dei tutti i prestiti attualmente attivi:</p>
+            <br/><a href="./studenti-dato-libro.html">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
+            <h1>VISUALIZZA CHI HA PRESO IN PRESTITO UN LIBRO</h1>
             
-            <table id="TableStyle">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Data Inizio Prestito</th>
-                        <th>Data Fine Prestito</th>
-                        <th>ISBN/Numero copia</th>
-                        <th>Titolo del libro</th>
-                        <th>Studente richiedente</th>
-                        <th>Codice Biblio - Sede</th>
-                    </tr>
-                </thead>
-                <tbody>
-                
-                    <?php while($riga = mysqli_fetch_array($res)) { ?>
-                        <tr>
-                            <td> <?php echo $riga['ID']; ?> </td>
-                            <td> <?php echo $riga['DataInizio']; ?> </td>
-                            <td> <?php echo $riga['DataFine']; ?> </td>
-                            <td> <?php echo $riga['ISBN'] . "/" . $riga['NumeroCopia']; ?> </td>
-                            <td> <?php echo $riga['Titolo']; ?></td>
-                            <td> <?php echo $riga['Nome'] . " " . $riga['Cognome'] . " (" . $riga['Matricola'] . ")"; ?> </td>
-                            <td> <?php echo $riga['CodiceB'] . " - " . $riga['NomeDipartimento'];?></td>
-                        </tr>
-                    <?php } ?>
+            <?php if($INVALID == 1) { 
+                // Controllo su titolo libro ?>
+                <p>OPS :(</p>
+                <p>Pare non ci sia nessun libro nella collezione con il titolo '<b><?php echo $Titolo; ?></b>'</p>
+                <p><a href="studenti-dato-libro.html">Riprova con un altro libro</a></p>   
+                <?php } ?>
 
-                </tbody>
-            </table>
-            <br/>
-            <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
+            <?php if($counter == 0 && $INVALID == 0) { ?>
+                <p>Pare che ancora nessuno studente abbia preso in prestito '<b><?php echo $Titolo; ?></b>'</p>  
+                <p><a href="studenti-dato-libro.html">Riprova con un altro libro</a></p>  
+            <?php } 
+            if($counter != 0 && $INVALID == 0) { ?>
+                
+                <p>Ci sono '<b><?php echo $counter;?></b>' studenti che hanno preso in prestito '<b><?php echo $Titolo; ?></b>':</p>
+                
+                <table id="TableStyle">
+                    <thead>
+                        <tr>
+                            <th>Matricola</th>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>CdS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                        <?php while($riga = mysqli_fetch_array($res)) { ?>
+                            <tr>
+                                <td> <?php echo $riga['Matricola']; ?> </td>
+                                <td> <?php echo $riga['Nome']; ?> </td>
+                                <td> <?php echo $riga['Cognome']; ?> </td>
+                                <td> <?php echo $riga['CdS']; ?></td>
+                            </tr>
+                        <?php } ?>
+
+                    </tbody>
+                </table>
+
+            <?php } ?>
+            <br/><a href="./studenti-dato-libro.html">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
         </div>
 
     </body>

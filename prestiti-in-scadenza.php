@@ -6,7 +6,7 @@
     $counter = 0;
 
     // Estrazione dal DB di tutti i prestiti
-    // mi piacerebbe far vedere la data di fine, ma come fare da PHP o MYSQL???????
+    // mi piacerebbe far vedere la data di fine, ma  da PHP o MYSQL???????
     $sql = "SELECT PRESTITO.ID, PRESTITO.Matricola, STUDENTE.Nome, STUDENTE.Cognome, PRESTITO.ISBN, PRESTITO.NumeroCopia, LIBRO.Titolo, PRESTITO.DataPrestito, DATE_ADD(PRESTITO.DataPrestito, INTERVAL 30 DAY) as DataFinePrestito, DATEDIFF(DATE_ADD(PRESTITO.DataPrestito, INTERVAL 30 DAY), CURDATE()) as GiorniAllaScadenza
             FROM PRESTITO, STUDENTE, LIBRO
             WHERE DATEDIFF(DATE_ADD(DataPrestito, INTERVAL 30 DAY), CURDATE()) <= '$GiorniAllaScadenza' AND STUDENTE.Matricola = PRESTITO.Matricola AND LIBRO.ISBN = PRESTITO.ISBN";
@@ -105,7 +105,7 @@
             else { ?>
             
                 <p>Elenco dei tutti i prestiti attualmente attivi in scadenza (giorni al rientro <= '<?php echo $GiorniAllaScadenza;?>'):</p>
-                <p>Ci sono: <?php echo $counter; ?> prestiti in scadenza.</p>
+                <p>'<b><?php echo $counter;?></b>' prestito/i in scadenza.</p>
                 <p>&#x2192;Usa la Matricola dello studente per ricerca i sui recapiti <a href="./user-search.html">cliccando qui</a>.</p>
                 <table id="TableStyle">
                     <thead>
