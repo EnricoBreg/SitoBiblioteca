@@ -16,54 +16,56 @@
             <a href="http://www.unife.it/it" target="blank"><img id="logo" src="./immagini/logo.jpg" alt="logo"></a>
         </div>
 
-    <!-- inizio barra di navigazione -->
-    <div id="navBar">
-        <!-- *id="navBar"> -->
-        <ul>
-            <!-- dentro agli li ci andranno i link alle relative pagine -->
-            <li>
-                <a href="./index.html">Home</a>
-            </li>
-            <li><a href="http://www.unife.it/it/ateneo/strutture-uffici/dipartimenti-e-facolta" target="__blank">Dipartimenti</a></li>
-            <li><a href="./menu.html">Libri</a>
+<!-- inizio barra di navigazione -->
+<div id="navBar">
+    <!-- *id="navBar"> -->
+    <ul>
+        <!-- dentro agli li ci andranno i link alle relative pagine -->
+        <li>
+            <a href="./index.html">Home</a>
+        </li>
+        <li><a href="http://www.unife.it/it/ateneo/strutture-uffici/dipartimenti-e-facolta" target="__blank">Dipartimenti</a></li>
+        <li><a href="./menu.html">Libri</a>
                 <ul>
-                    <li><a href="./book-signup-1.php">Registra nuovo libro</a>
                     <li><a href="registra-copia-1.php">Registra nuova copia (libro esistente)</a></li>
+                    <li><a href="./book-signup-1.php">Registra nuovo libro</a>
+                    <li><a href="studenti-dato-libro.html">Ricerca studenti per libro</a></li>
                     <li><a href="./ricerca-libro.html">Ricerca un libro</a></li>
                     <li><a href="./all-books.php">Visualizza tutti i libri nel DB</a></li>
                 </ul>
-                </li>
-                <li><a href="./menu.html">Prestiti</a>
-                    <ul>
-                        <li><a href="./consulta-prestiti.html">Consulta situazione prestiti per codice matricola</a></li>
-                        <li><a href="./registra-prestito-1.php">Registra nuovo prestito</a></li>
-                        <li><a href="./registra_proroga.html">Proroga un prestito</a></li>
-                        <li><a href="./registra_rientro.html">Registra un rientro</a></li>
-                        <li><a href="./tutti-prestiti.php">Visualizza tutti i prestiti</a></li>
-                    </ul>
-                </li>
-                <li><a href="./menu.html">Utenti</a>
-                    <ul>
-                        <li><a href="./registra_utente.html">Registra nuovo utente</a></li>
-                        <li><a href="./aggiornamento_utente1.html">Aggiorna/Modifica utente</a></li>
-                        <li><a href="./cancella_utente.html">Cancella utente</a></li>
-                        <li><a href="./user-search.php">Ricerca uno studente</a></li>
-                    </ul>
-                </li>
-                <li><a href="./menu.html">Autori/Editori</a>
-                    <ul>
-                        <li><a href="./all-pubs.php">Visualizza tutti gli Editori dei libri</a></li>
-                        <li><a href="./all-authors.php">Visualizza tutti gli Autori dei libri</a></li>
-                        <li><a href="./pub-reg.php">Nuovo Editore</a></li>
-                        <li><a href="./author-reg.php">Nuovo Autore</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="usefull-info.php">Usefull Info</a>
-                </li>
-        </ul>
-    </div>
-    <!-- fine barra di navigazione -->
+            </li>
+            <li><a href="./menu.html">Prestiti</a>
+                <ul>
+                    <li><a href="./consulta-prestiti.html">Consulta situazione prestiti per codice matricola</a></li>
+                    <li><a href="./registra_proroga.html">Proroga un prestito</a></li>
+                    <li><a href="./registra-prestito-1.php">Registra nuovo prestito</a></li>
+                    <li><a href="./registra_rientro.html">Registra un rientro</a></li>
+                    <li><a href="./prestiti-in-scadenza.html">Visualizza prestiti in scadenza</a></li>
+                    <li><a href="./tutti-prestiti.php">Visualizza tutti i prestiti</a></li>
+                </ul>
+            </li>
+            <li><a href="./menu.html">Utenti</a>
+                <ul>
+                    <li><a href="./aggiornamento_utente1.html">Aggiorna/Modifica utente</a></li>
+                    <li><a href="./cancella_utente.html">Cancella utente</a></li>
+                    <li><a href="./registra_utente.html">Registra nuovo utente</a></li>
+                    <li><a href="./user-search.html">Ricerca uno studente</a></li>
+                </ul>
+            </li>
+            <li><a href="./menu.html">Autori/Editori</a>
+                <ul>
+                    <li><a href="./author-reg.php">Nuovo Autore</a></li>
+                    <li><a href="./pub-reg.php">Nuovo Editore</a></li>
+                    <li><a href="./all-authors.php">Visualizza tutti gli Autori</a></li>
+                    <li><a href="./all-pubs.php">Visualizza tutti gli Editori</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="usefull-info.php">Usefull Info</a>
+            </li>
+    </ul>
+</div>
+<!-- fine barra di navigazione -->
         <!-- inizio form -->
         <div id="form">
             <form action="cancella_utente.php" method="POST">
