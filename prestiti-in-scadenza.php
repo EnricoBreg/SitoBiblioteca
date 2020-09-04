@@ -105,7 +105,7 @@
             else { ?>
             
                 <p>Elenco dei tutti i prestiti attualmente attivi in scadenza (giorni al rientro <= '<?php echo $GiorniAllaScadenza;?>'):</p>
-                <p>Ci sono: <?php echo $counter; ?> presiti in scadenza.</p>
+                <p>Ci sono: <?php echo $counter; ?> prestiti in scadenza.</p>
                 <p>&#x2192;Usa la Matricola dello studente per ricerca i sui recapiti <a href="./user-search.html">cliccando qui</a>.</p>
                 <table id="TableStyle">
                     <thead>
