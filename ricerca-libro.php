@@ -7,12 +7,12 @@
     $INVALID = 0; // Variabile di controllo
     $trovati = 0;
 
-    $sql = "SELECT LIBRO.ISBN, LIBRO.Titolo, LIBRO.AnnoPubblicazione, LIBRO.Categoria, LIBRO.Lingua, AUTORE.Nome AS NomeA, AUTORE.Cognome AS CognomeA, EDITORE.Nome AS Editore
-    FROM LIBRO, SCRIVE, AUTORE, EDITORE
-    WHERE LIBRO.Titolo LIKE '%$TITOLO%' AND LIBRO.ISBN = SCRIVE.ISBN AND SCRIVE.CodiceA = AUTORE.CodiceAutore AND LIBRO.CodiceE = EDITORE.CodiceEditore";
+    $sql_selezione = "SELECT LIBRO.ISBN, LIBRO.Titolo, LIBRO.AnnoPubblicazione, LIBRO.Categoria, LIBRO.Lingua, AUTORE.Nome AS NomeA, AUTORE.Cognome AS CognomeA, EDITORE.Nome AS Editore
+                    FROM LIBRO, SCRIVE, AUTORE, EDITORE
+                    WHERE LIBRO.Titolo LIKE '%$TITOLO%' AND LIBRO.ISBN = SCRIVE.ISBN AND SCRIVE.CodiceA = AUTORE.CodiceAutore AND LIBRO.CodiceE = EDITORE.CodiceEditore";
 
-    $res = mysqli_query($link, $sql);    
-    $resCopy = mysqli_query($link, $sql);
+    $res = mysqli_query($link, $sql_selezione);    
+    $resCopy = mysqli_query($link, $sql_selezione);
 
     // Controllo del risultato della query
     while($temp = mysqli_fetch_array($resCopy)) {
@@ -108,8 +108,7 @@
         <!-- inizio form res -->
         <div id="formRes">
 
-            <a href="./user-search.php">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
-            
+            <a href="./ricerca-libro.html">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
             <h1>ESITO RICERCA LIBRI</h1>
             <?php if($INVALID == 1) { ?>
                 <p><b>'<?php echo $trovati; ?>'</b> risultati trovati in base alla ricerca '<?php echo $TITOLO; ?>'</p>
@@ -161,7 +160,7 @@
                 </tbody>
             </table>
             <?php } ?>
-            <a href="./user-search.php">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
+            <a href="./ricerca-libro.html">Indietro &#x2934;</a> | <a href="./menu.html">Menù &#x2934;</a> | <a href="./index.html">Ritorna all HOME</a><br/>
 
         </div>
         <!-- fine form res-->

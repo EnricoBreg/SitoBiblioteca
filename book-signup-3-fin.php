@@ -121,7 +121,7 @@
 
         <!-- Fields Resume list -->
         <h5>Registrazione del libro conclusa con successo! Qui sotto trovi il riepilogo dei dati inseriti</h5>
-        <table class="TableStyle">
+        <table id="TableStyle">
             <thead>
                 <tr>
                     <th>ISBN</th>
